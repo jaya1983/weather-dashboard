@@ -1,0 +1,53 @@
+:root {
+    --primary: #ccdad1;
+    --secondary: #9caea9;
+    --tertiary: #788585;
+    --light-dark: blue;
+    --dark: #38302e;
+    --border-radius: .3rem;
+  }
+
+h1{
+    height: 50px; 
+    background-color: blue;
+    text-align: center;
+    color: white;
+}
+body{
+    background-color: lemonchiffon;
+}
+
+.btn {
+    font-size: 1.3rem;
+    text-decoration:none;
+    padding: 6px 25px;    
+    width: 20%;
+    height: 50px;
+    display: block;
+    margin: 25px 0px;
+    border-radius: var(--border-radius);
+    color: var(--primary);
+    border: none;
+    outline: none;
+    background-color: var(--light-dark);
+    box-shadow: 3px 3px var(--dark);
+    transform: translate(-1px, -1px);
+  }
+
+.card-header{
+  font-size: 25px;
+  padding: 10px 0px 0px 0px;
+  }
+#city{
+    width: 20%;
+    height: 30px;
+    margin: 0;
+}
+
+.card-header {
+    color: black;   
+    width: 20%;
+ }
+  
+  .card-body {
+     }

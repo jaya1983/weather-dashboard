@@ -5,23 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <title>Weather Forecast</title>
   </head>
   <body>
     <div class="header">
-      <h1>Weather Dashboard</h1>
+      <h1 id="header">Weather Dashboard</h1>
     </div>
-    <main class="flex-row justify-space-between">
-        <div class="col-12 col-md-4">
-        <div class="card ml-5">
-            <h3 class="card-header text-uppercase">Search for a City</h3>
-            <form id="user-form" class="card-body">              
-              <input name="city" id="city" type="text" autofocus="true" class="form-input" />              
-            </form>
-            <button type="search" class="btn">Search</button>
-          </div>
-        </div>
-        <div class="col-12 col-md-8"></div>
-      </main>
+    <div class="container-fluid">
+        <div class="row">
+        <div class=".col-4">
+          <div class="card ml-5">
+          <h3 class="card-header">Search for a City</h3>
+          <form id="user-form" class="card-body">
+            <input
+              name="city"
+              id="city"
+              type="text"
+              autofocus="true"
+              class="form-input"
+            />
+          </form>
+          <button type="search" class="btn" id="search">Search</button>  
+          </div>  
+          <!--Hide this div until search button is clicked--> 
+          <div id="recent-search" class="recent-search hide">           
+       </div>     
+   </div>
+   <div class=".col-8">
+    <div id="todays-weather" class="card display-weather-conditions ml-5 hide">
+       
+       </div>
+   </div>
+  </div>
+    <!--footer-->
+    <div class="footer">
+      <h2>Made by Jaya Gudipalli</h2>
+      <p>&copy; 2021 Social Solution Services, Inc.</p>
+    </div>
+    <script src="./Assets/js/script.js"></script>
   </body>
 </html>

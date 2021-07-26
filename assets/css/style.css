@@ -8,7 +8,7 @@
 }
 #header{
   height: 50px;
-  background-color: blue;
+  background-color: navy;
   text-align: center;
   color: white;
 }
@@ -32,10 +32,15 @@ body {
   font-size: 18px;
   background-color: skyblue;
 }
+#bootstrap-overrides{
+  background-color: silver;
+  margin-top: 20px;
+}
 .card-header {
-  font-size: 25px;
+ font-size: 25px;
   text-align: center;
-  padding: 10px 0px 0px 0px;
+  padding: 10px 20px 0px 0px;
+ 
 }
 #city {
   width: 300px;
@@ -47,10 +52,28 @@ body {
 .weather-conditions {
   margin-top: 20px;
 }
+#todays-weather{
+    background-color: silver;
+    width: 1000px;
+    height: 290px;
+    padding: 20px;
+    margin-top: 20px;  
+    border-radius: 5px;
+}
+.five-day-forecast{
+  background-color: darkslateblue;
+  width: 180px;
+  height: 190px;
+  padding: 20px;
+  margin-top: 20px;  
+}
 .display-weather-conditions{
   width: 80%;
 }
-
+#show-five-day-header{
+  margin-left: 45px;
+  margin-top: 20px;
+}
 /* footer Styling */
 .footer {
   padding: 30px;
@@ -65,8 +88,8 @@ body {
 }
 .city-name {
     width: 88%;
-    border: 5px solid gray;
-    background-color: slategrey;
+    border: 5px solid silver;
+    background-color: silver;
     border-radius: 5px;
     font-size: 20px;
     display: flex;

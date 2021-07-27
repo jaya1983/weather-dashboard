@@ -8,6 +8,7 @@ var saveCity = [];
 var apiKey = "a65c5c15039d05a0f7175619a4cb05e1";
 var tempUnit = "imperial";
 var cityId;
+var recentHistorySearch;
 
 var displayCityDateInfo = document.getElementById("selected-city");
 var temperature = document.getElementById("temperature");
@@ -117,20 +118,19 @@ function fiveDayWeatherforecast(cityID) {
 
       /* For each date, there are 8 objects, iterate over the list of 40 items */
       for (index = 0; index < 5; index++) {
-       /* get Div tag by id and clear content before appending*/
+        /* get Div tag by id and clear content before appending*/
         var dailyforecast = document.querySelector(
           `#displayDay${index + 1}Weather`
         );
         dailyforecast.innerHTML = " ";
-        
+
         // calculate index to retreive 4th occurence object to display 3.00pm values
         calculatedIndex = index * 8 + 4;
         if (calculatedIndex < fiveDayList.length) {
           var forecastDate = document.createElement("p");
-          var forecastTemp = document.createElement("p"); 
+          var forecastTemp = document.createElement("p");
           var forecastWind = document.createElement("p");
           var forecastHumidity = document.createElement("p");
-     
 
           var getEachDayDate = fiveDayList[calculatedIndex].dt_txt;
           getEachDayDate = getEachDayDate.slice(1, -1);
@@ -168,15 +168,20 @@ function fiveDayWeatherforecast(cityID) {
 
 function displayRecentSearch() {
   var storedNames = localStorage.getItem("names");
-  console.log("stored items " + storedNames);
   saveCity.push(storedNames);
-  console.log(saveCity);
   var displayCity = document.createElement("button");
   displayCity.classList.add("city-name");
+ 
   for (index = 0; index < saveCity.length; index++) {
     displayCity.textContent = saveCity[index];
     recentCitySearch.appendChild(displayCity);
   }
+  /* If the button in recent search is clicked, today's weather and 5 day forecast will be displayed for that particular city */
+  displayCity.addEventListener("click", function () {
+    recentHistorySearch = displayCity.textContent;
+    weatherAPIRequest(recentHistorySearch);
+  });
 }
+
 var searchButton = document.querySelector("#search");
 searchButton.addEventListener("click", searchCity);

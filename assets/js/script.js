@@ -214,6 +214,10 @@ function formattedDate(formatDate) {
   month = formatDate[1];
   day = formatDate[2];
   console.log("day ", day, "month", month, "year", year);
+  if(year.length < 4){
+    year = "2"+year;
+  }
+  console.log("yr", year);
   var myDate = month + "/" + day + "/" + year;
   console.log("myDate ", myDate);
   return myDate;

@@ -20,28 +20,32 @@ function searchCity() {
   /* Remove hide class show Recent Search div after search is clicked */
   recentCitySearch.classList.remove("hide");
   recentCitySearch.classList.add("show");
-  todaysWeather.classList.remove("hide");
-  todaysWeather.classList.add("show");
-  show5DayHeader.classList.remove("hide");
-  show5DayHeader.classList.add("show");
 
-  /* Get City and convert first letter to upper case */
+  /* Get City and capitalize first letter of each word */
   var getCity = document.querySelector("#city").value;
-  const cityUpperCase = getCity;
-  const city = cityUpperCase.charAt(0).toUpperCase() + cityUpperCase.slice(1);
-  console.log("str2", city);
+  console.log("city selected", getCity);
+  var city = capitalizeFirstLetter(getCity);
 
   /* Store in local Storage to retreive for recent history */
   localStorage.setItem("names", city);
+
   /* Show Recent search history */
   displayRecentSearch(city);
+
   /* Make API call to get the current and next 5-day forcast for the city entered by the user */
   weatherAPIRequest(city);
 }
 
 function weatherAPIRequest(cityName) {
+  /* Remove hide class show Recent Search div after search is clicked */
+  todaysWeather.classList.remove("hide");
+  todaysWeather.classList.add("show");
+  show5DayHeader.classList.remove("hide");
+  show5DayHeader.classList.add("show");
+
+  /* call Weather API */
   var weatherAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&units=${tempUnit}`;
-  console.log("api req" + weatherAPI);
+  console.log("Weather api req" + weatherAPI);
   fetch(weatherAPI)
     .then(function (response) {
       return response.json();
@@ -49,9 +53,7 @@ function weatherAPIRequest(cityName) {
     .then(function (response) {
       /* fORMAT dATE */
       var currentDate = JSON.stringify(response.list[0].dt_txt);
-      currentDate = currentDate.slice(1, -1);
-      currentDate = currentDate.split(" ")[0];
-
+      currentDate = formattedDate(currentDate);
       /* Weather icon*/
       var weatherIcon = JSON.stringify(response.list[0].weather[0].icon);
 
@@ -122,9 +124,10 @@ function fiveDayWeatherforecast(cityID) {
         var dailyforecast = document.querySelector(
           `#displayDay${index + 1}Weather`
         );
+        /* Clear existing content before appending */
         dailyforecast.innerHTML = " ";
 
-        // calculate index to retreive 4th occurence object to display 3.00pm values
+        // calculate index to retreive 4th occurence object to display NOON values
         calculatedIndex = index * 8 + 4;
         if (calculatedIndex < fiveDayList.length) {
           var forecastDate = document.createElement("p");
@@ -133,8 +136,7 @@ function fiveDayWeatherforecast(cityID) {
           var forecastHumidity = document.createElement("p");
 
           var getEachDayDate = fiveDayList[calculatedIndex].dt_txt;
-          getEachDayDate = getEachDayDate.slice(1, -1);
-          getEachDayDate = getEachDayDate.split(" ")[0];
+          getEachDayDate = formattedDate(getEachDayDate);
 
           var eachDayTemp = fiveDayList[calculatedIndex].main.temp;
           console.log("eachDayTemp ", eachDayTemp);
@@ -148,7 +150,7 @@ function fiveDayWeatherforecast(cityID) {
           weatherForecast.classList.add("weather-forecast");
 
           forecastDate.classList.add("each-day-date");
-          forecastDate.innerHTML = `(${getEachDayDate})`;
+          forecastDate.innerHTML = `${getEachDayDate}`;
 
           forecastTemp.innerHTML = `Temp : ${eachDayTemp} F`;
           console.log(" forecastTemp text content ", forecastTemp.innerHTML);
@@ -158,7 +160,7 @@ function fiveDayWeatherforecast(cityID) {
           forecastHumidity.innerHTML = `Humidity : ${eachDayHumidity} %`;
         }
 
-        dailyforecast.append(forecastDate.innerHTML);
+        dailyforecast.append(forecastDate);
         dailyforecast.appendChild(forecastTemp);
         dailyforecast.appendChild(forecastWind);
         dailyforecast.appendChild(forecastHumidity);
@@ -171,7 +173,7 @@ function displayRecentSearch() {
   saveCity.push(storedNames);
   var displayCity = document.createElement("button");
   displayCity.classList.add("city-name");
- 
+
   for (index = 0; index < saveCity.length; index++) {
     displayCity.textContent = saveCity[index];
     recentCitySearch.appendChild(displayCity);
@@ -183,5 +185,30 @@ function displayRecentSearch() {
   });
 }
 
+function capitalizeFirstLetter(cName) {
+  cName = cName.split(" ");
+  for (var i = 0; i < cName.length; i++) {
+    cName[i] = cName[i].charAt(0).toUpperCase() + cName[i].slice(1);
+  }
+  cName = cName.join(" ");
+  console.log("capitalizedCity ", cName);
+  return cName;
+}
+
+function formattedDate(formatDate) {
+  var day;
+  var month;
+  var year;
+  formatDate = formatDate.slice(1, -1);
+  formatDate = formatDate.split(" ")[0];
+  formatDate = formatDate.split("-");
+  year = formatDate[0];
+  month = formatDate[1];
+  day = formatDate[2];
+  console.log("day ", day, "month", month, "year", year);
+  var myDate = month + "/" + day + "/" + year;
+  console.log("myDate ", myDate);
+  return myDate;
+}
 var searchButton = document.querySelector("#search");
 searchButton.addEventListener("click", searchCity);

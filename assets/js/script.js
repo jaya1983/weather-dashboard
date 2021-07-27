@@ -56,12 +56,20 @@ function weatherAPIRequest(cityName) {
       currentDate = formattedDate(currentDate);
       /* Weather icon*/
       var weatherIcon = JSON.stringify(response.list[0].weather[0].icon);
+      console.log("weatherIcon", weatherIcon);
+      weatherIcon = weatherIcon.slice(1, -1);
+      weatherIcon = weatherIcon.split(" ")[0];
+      
+      var displayWeatherIcon = document.createElement("img");
+      var imgSource = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
+      console.log("imgSource", imgSource);
+      displayWeatherIcon.setAttribute("src", `${imgSource}`);
 
-      // displayCityDateInfo.textContent =
-      //   `${cityName} (${currentDate}) ${weatherIcon}` + "@2x.png";
+     // displayWeatherIcon.setAttribute("alt", response.data.weather[0].description);
       displayCityDateInfo.textContent = `${cityName} (${currentDate})`;
+      displayCityDateInfo.appendChild(displayWeatherIcon);
       todaysWeather.appendChild(displayCityDateInfo);
-
+      
       /* Display weather conditions */
       var responseTemperature = JSON.stringify(response.list[0].main.temp);
       temperature.textContent = `Temp: ${responseTemperature}F`;

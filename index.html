@@ -5,8 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+    />
     <title>Weather Forecast</title>
   </head>
   <body>
@@ -14,47 +21,54 @@
       <h1 id="header">Weather Dashboard</h1>
     </div>
     <div class="container-fluid">
-        <div class="row">
+      <div class="row">
         <div class=".col-4">
           <div class="card ml-5" id="bootstrap-overrides">
-          <h3 class="card-header">Search for a City</h3>
-          <form id="user-form" class="card-body">
-            <input
-              name="city"
-              id="city"
-              type="text"
-              autofocus="true"
-              class="form-input"
-            />
-          </form>
-          <button type="search" class="btn" id="search">Search</button>  
-          </div>  
-          <!--Hide this div until search button is clicked--> 
-          <div id="recent-search" class="recent-search hide">           
-       </div>     
-   </div>
-   <div class=".col-8">
-    <div class="row">
-    <div id="todays-weather" class="display-weather-conditions ml-5 hide">
-       <h1 id ="selected-city"></h1>
-       <p id="temperature" class="weather-conditions"></p>
-       <p id="wind" class="weather-conditions"></p>
-       <p id="humidity" class="weather-conditions"></p>
-       <p id="UV-index" class="weather-conditions"></p>
-       </div>
-       </div>
-       <div class="row">
-        <div id = "show-five-day-header" class = "show-five-day-header hide">
-          <h1> 5-Day Weather Forecast</h1>
+            <h3 class="card-header">Search for a City</h3>
+            <form id="user-form" class="card-body">
+              <input
+                name="city"
+                id="city"
+                type="text"
+                autofocus="true"
+                class="form-input"
+              />
+            </form>
+            <button type="search" class="btn" id="search">Search</button>
+          </div>
+          <!--Hide this div until search button is clicked-->
+          <div id="recent-search" class="recent-search hide"></div>
         </div>
-        </div>
-        <div class="row">
         <div class=".col-8">
-        <div id="five-day-forecast" class="ml-5 hide">         
+          <div class="row">
+            <div
+              id="todays-weather"
+              class="display-weather-conditions ml-5 hide"
+            >
+              <h1 id="selected-city"></h1>
+              <p id="temperature" class="weather-conditions"></p>
+              <p id="wind" class="weather-conditions"></p>
+              <p id="humidity" class="weather-conditions"></p>
+              <p id="UV-index" class="weather-conditions"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div id="show-five-day-header" class="show-five-day-header hide">
+              <h1>5-Day Weather Forecast</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div id="weather-forecast" class=".col-8 weather-forecast hide">
+              <div id="displayDay1Weather"  class="five-day-forecast ml-5 text-white"></div>
+              <div id="displayDay2Weather" class="five-day-forecast ml-5 text-white"></div>
+              <div id="displayDay3Weather" class="five-day-forecast ml-5 text-white"></div>
+              <div id="displayDay4Weather" class="five-day-forecast ml-5 text-white"></div>
+              <div id="displayDay5Weather" class="five-day-forecast ml-5 text-white"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>   
-  </div>
+    </div>
     <!--footer
     <div class="footer">
       <h2>Made by Jaya Gudipalli</h2>

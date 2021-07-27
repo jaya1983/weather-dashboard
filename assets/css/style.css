@@ -6,7 +6,7 @@
   --dark: #38302e;
   --border-radius: 0.3rem;
 }
-#header{
+#header {
   height: 50px;
   background-color: navy;
   text-align: center;
@@ -18,29 +18,28 @@ body {
 .btn {
   font-size: 18px;
   text-decoration: none;
-  padding: 6px 25px 10px 20px; 
+  padding: 6px 25px 10px 20px;
   width: 90%;
-  height: 50px; 
+  height: 50px;
   display: block;
   margin: 25px 10px 20px 20px;
   border-radius: 10px;
-  color: black;  
+  color: black;
   box-shadow: 3px 3px var(--dark);
   transform: translate(-1px, -1px);
 }
-#search{
+#search {
   font-size: 18px;
   background-color: skyblue;
 }
-#bootstrap-overrides{
+#bootstrap-overrides {
   background-color: silver;
   margin-top: 20px;
 }
 .card-header {
- font-size: 25px;
+  font-size: 25px;
   text-align: center;
   padding: 10px 20px 0px 0px;
- 
 }
 #city {
   width: 300px;
@@ -52,27 +51,39 @@ body {
 .weather-conditions {
   margin-top: 20px;
 }
-#todays-weather{
-    background-color: silver;
-    width: 1000px;
-    height: 290px;
-    padding: 20px;
-    margin-top: 20px;  
-    border-radius: 5px;
+#todays-weather {
+  background-color: silver;
+  width: 1090px;
+  height: 290px;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
 }
-.five-day-forecast{
+.weather-forecast {
+  display: flex;
+  flex-direction: column;
+}
+.five-day-forecast {
   background-color: darkslateblue;
   width: 180px;
-  height: 190px;
-  padding: 20px;
-  margin-top: 20px;  
+  height: 170px;
+  padding: 5px;
+  margin-top: 10px;
 }
-.display-weather-conditions{
+.display-weather-conditions {
   width: 80%;
 }
-#show-five-day-header{
+#show-five-day-header {
   margin-left: 45px;
   margin-top: 20px;
+}
+.text-color {
+  color: white;
+}
+.each-day-date {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
 }
 /* footer Styling */
 .footer {
@@ -87,19 +98,23 @@ body {
   font-size: 20px;
 }
 .city-name {
-    width: 88%;
-    border: 5px solid silver;
-    background-color: silver;
-    border-radius: 5px;
-    font-size: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px 40px 40px 50px;
+  width: 88%;
+  border: 5px solid silver;
+  background-color: silver;
+  border-radius: 5px;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 40px 40px 50px;
 }
-.hide{
+.hide {
   display: none;
 }
-.show{
+.show {
   display: block;
+}
+.show-forecast {
+  display: flex;
+  flex-direction: row;
 }

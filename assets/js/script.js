@@ -59,17 +59,17 @@ function weatherAPIRequest(cityName) {
       console.log("weatherIcon", weatherIcon);
       weatherIcon = weatherIcon.slice(1, -1);
       weatherIcon = weatherIcon.split(" ")[0];
-      
+
       var displayWeatherIcon = document.createElement("img");
       var imgSource = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
       console.log("imgSource", imgSource);
       displayWeatherIcon.setAttribute("src", `${imgSource}`);
 
-     // displayWeatherIcon.setAttribute("alt", response.data.weather[0].description);
+      // displayWeatherIcon.setAttribute("alt", response.data.weather[0].description);
       displayCityDateInfo.textContent = `${cityName} (${currentDate})`;
       displayCityDateInfo.appendChild(displayWeatherIcon);
       todaysWeather.appendChild(displayCityDateInfo);
-      
+
       /* Display weather conditions */
       var responseTemperature = JSON.stringify(response.list[0].main.temp);
       temperature.textContent = `Temp: ${responseTemperature}F`;
@@ -143,6 +143,16 @@ function fiveDayWeatherforecast(cityID) {
           var forecastWind = document.createElement("p");
           var forecastHumidity = document.createElement("p");
 
+          var displayIcon = fiveDayList[calculatedIndex].weather[0].icon;
+          console.log("display Icon", displayIcon);
+          // displayIcon = displayIcon.slice(1, -1);
+          // displayIcon = displayIcon.split(" ")[0];
+
+          var forecastWeatherIcon = document.createElement("img");
+          var imageSource = `https://openweathermap.org/img/wn/${displayIcon}@2x.png`;
+          console.log("imageSource", imageSource);
+          forecastWeatherIcon.setAttribute("src", `${imageSource}`);
+
           var getEachDayDate = fiveDayList[calculatedIndex].dt_txt;
           getEachDayDate = formattedDate(getEachDayDate);
 
@@ -169,6 +179,7 @@ function fiveDayWeatherforecast(cityID) {
         }
 
         dailyforecast.append(forecastDate);
+        forecastDate.appendChild(forecastWeatherIcon);
         dailyforecast.appendChild(forecastTemp);
         dailyforecast.appendChild(forecastWind);
         dailyforecast.appendChild(forecastHumidity);
@@ -214,8 +225,8 @@ function formattedDate(formatDate) {
   month = formatDate[1];
   day = formatDate[2];
   console.log("day ", day, "month", month, "year", year);
-  if(year.length < 4){
-    year = "2"+year;
+  if (year.length < 4) {
+    year = "2" + year;
   }
   console.log("yr", year);
   var myDate = month + "/" + day + "/" + year;

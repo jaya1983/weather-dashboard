@@ -28,5 +28,7 @@ The Weather API for 5-day weather forecast returns a list of weather conditions 
  - And then Temp, Wind speed and Humidity are displayed. 
 
 
-- Screen Shot
+# Screen Shot
+
+
 ![Capture](Capture.PNG)

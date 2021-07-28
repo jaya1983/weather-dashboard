@@ -1,14 +1,14 @@
-# weather-dashboard
+# ** weather-dashboard **
 A Web page where user can search a particular city's weather by its name.
 The top left corner displays a card layout, where an input text box with a search button is provided.
 Once the user clicks on search, a recent search history will appear.
 
-# ***Recent Search History ***
+# ***Recent-Search-History***
 - last 10 recently searched city names are displayed just below the search button.
 - The section can be used to click on any recntly searched city and accordingly the today's weather and 5 day forecast sections will change.
 
 And the right side of the page will display today's weather section:
-# ***Today's Weather section ***
+# ***Today's-Weather-section***
 - A header with City name, date and an icon to depict weather condition.
 - Temp, Wind Speed, Humidity and UV-Index 
 - UV-Index will display a color that indicates whether the conditions are favorable, moderate, or severe

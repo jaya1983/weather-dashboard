@@ -17,9 +17,11 @@
     <title>Weather Forecast</title>
   </head>
   <body>
+      <!-- Body Header -->
     <div class="header">
       <h1 id="header">Weather Dashboard</h1>
     </div>
+    <!-- Body Content -->
     <div class="container-fluid">
       <div class="row">
         <div class=".col-4">
@@ -41,12 +43,14 @@
               <hr id="horizontal-rule" class="horizontal-rule hide"/>
           </div>
         </div>
+        <!-- Today's Weather Section -->
         <div class=".col-8 ml-3">
           <div class="row">
             <div
               id="todays-weather"
               class="display-weather-conditions ml-5 hide"
             >
+            <!-- Display Wether Conditions-->
               <h1 id="selected-city"></h1>
               <p id="temperature" class="weather-conditions"></p>
               <p id="wind" class="weather-conditions"></p>
@@ -54,11 +58,13 @@
               <p id="UV-index" class="weather-conditions"></p>
             </div>
           </div>
+          <!-- Display Header for 5 Day Forecast-->
           <div class="row">
             <div id="show-five-day-header" class="show-five-day-header hide">
               <h1>5-Day Weather Forecast</h1>
             </div>
           </div>
+          <!-- Each Day Weather Forecast-->
           <div class="row">
             <div id="weather-forecast" class=".col-8 weather-forecast hide">
               <div id="displayDay1Weather"  class="five-day-forecast ml-5 text-white"></div>

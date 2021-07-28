@@ -1,14 +1,9 @@
-/* Api call to weather for a search City */
+
 var recentCitySearch = document.querySelector("#recent-search");
 var todaysWeather = document.querySelector("#todays-weather");
 var show5DayHeader = document.querySelector("#show-five-day-header");
 var weatherForecast = document.querySelector("#weather-forecast");
-
-var saveCity = [];
-var apiKey = "a65c5c15039d05a0f7175619a4cb05e1";
-var tempUnit = "imperial";
-var cityId;
-var recentHistorySearch;
+var getCity = document.querySelector("#city");
 
 var displayCityDateInfo = document.getElementById("selected-city");
 var temperature = document.getElementById("temperature");
@@ -17,30 +12,31 @@ var humidity = document.getElementById("humidity");
 var uvIndex = document.getElementById("UV-index");
 var horizontalRule = document.getElementById("horizontal-rule");
 
+var saveCity = [];
+var apiKey = "a65c5c15039d05a0f7175619a4cb05e1";
+var tempUnit = "imperial";
+var cityId;
+var recentHistorySearch;
+
+/* function for On click event on Search Button OR Input ENTER key */
 function searchCity() {
+  
   /* Remove hide class show Recent Search div after search is clicked */
   recentCitySearch.classList.remove("hide");
   recentCitySearch.classList.add("show");
   horizontalRule.classList.remove("hide");
   horizontalRule.classList.add("show");
 
-  /* Get City and capitalize first letter of each word */
-  var getCity = document.querySelector("#city").value;
-  console.log("city selected", getCity);
-  var city = capitalizeFirstLetter(getCity);
+  /* Get City and capitalize first letter of each word .value;*/
+  var city = capitalizeFirstLetter(getCity.value);
 
   /* Store in local Storage to retreive for recent history */
   localStorage.setItem("names", city);
- 
-  /* create a horizontal rule and then display recent search */
-  // var horizontalRule = document.createElement("hr");
-  // horizontalRule.classList.add("horizontal-rule");
-  // recentCitySearch.appendChild(horizontalRule);
 
   /* Show Recent search history */
   displayRecentSearch(city);
 
-  /* Make API call to get the current and next 5-day forcast for the city entered by the user */
+  /* Make API call to get the current day's weather */
   weatherAPIRequest(city);
 }
 
@@ -59,21 +55,20 @@ function weatherAPIRequest(cityName) {
       return response.json();
     })
     .then(function (response) {
-      /* fORMAT dATE */
+      /* Get Formatted Date */
       var currentDate = JSON.stringify(response.list[0].dt_txt);
       currentDate = formattedDate(currentDate);
       /* Weather icon*/
       var weatherIcon = JSON.stringify(response.list[0].weather[0].icon);
-      console.log("weatherIcon", weatherIcon);
       weatherIcon = weatherIcon.slice(1, -1);
       weatherIcon = weatherIcon.split(" ")[0];
 
+      /* create Image element for displaying icon */
       var displayWeatherIcon = document.createElement("img");
       var imgSource = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
       console.log("imgSource", imgSource);
       displayWeatherIcon.setAttribute("src", `${imgSource}`);
 
-      // displayWeatherIcon.setAttribute("alt", response.data.weather[0].description);
       displayCityDateInfo.textContent = `${cityName} (${currentDate})`;
       displayCityDateInfo.appendChild(displayWeatherIcon);
       todaysWeather.appendChild(displayCityDateInfo);
@@ -88,11 +83,12 @@ function weatherAPIRequest(cityName) {
       var responseHumidity = JSON.stringify(response.list[0].main.humidity);
       humidity.textContent = `Humidity: ${responseHumidity} %`;
 
-      // Get UV Index
+      /* Get UV Index */
       var lat = response.city.coord.lat;
       var lon = response.city.coord.lon;
       cityId = response.city.id;
 
+      /* call UV Query API to get UV-Index */
       var UVQueryURL = `https://api.openweathermap.org/data/2.5/uvi/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&cnt=1`;
 
       fetch(UVQueryURL)
@@ -130,7 +126,6 @@ function fiveDayWeatherforecast(cityID) {
       return response.json();
     })
     .then(function (response) {
-      console.log("resp ", response);
       var fiveDayList = response.list;
       console.log("fiveDayList", fiveDayList);
 
@@ -143,9 +138,9 @@ function fiveDayWeatherforecast(cityID) {
         /* Clear existing content before appending */
         dailyforecast.innerHTML = " ";
 
-        // calculate index to retreive 4th occurence object to display NOON values
+        /* calculate index to retreive 4th occurence object to display NOON values */
         calculatedIndex = index * 8 + 4;
-        
+
         if (calculatedIndex < fiveDayList.length) {
           var forecastDate = document.createElement("p");
           var forecastTemp = document.createElement("p");
@@ -153,22 +148,19 @@ function fiveDayWeatherforecast(cityID) {
           var forecastHumidity = document.createElement("p");
 
           var displayIcon = fiveDayList[calculatedIndex].weather[0].icon;
-          console.log("display Icon", displayIcon);
-    
+
+          /* Create Image element to display icon */
           var forecastWeatherIcon = document.createElement("img");
           var imageSource = `https://openweathermap.org/img/wn/${displayIcon}@2x.png`;
-          console.log("imageSource", imageSource);
           forecastWeatherIcon.setAttribute("src", `${imageSource}`);
 
+          /* Get Weather conditions - Date, Temp, Wind and Humidity values */
           var getEachDayDate = fiveDayList[calculatedIndex].dt_txt;
           getEachDayDate = formattedDate(getEachDayDate);
 
           var eachDayTemp = fiveDayList[calculatedIndex].main.temp;
-          console.log("eachDayTemp ", eachDayTemp);
           var eachDayWind = fiveDayList[calculatedIndex].wind.speed;
-          console.log("eachDayWind ", eachDayWind);
           var eachDayHumidity = fiveDayList[calculatedIndex].main.humidity;
-          console.log("eachDayHumidity ", eachDayHumidity);
 
           weatherForecast.classList.remove("hide");
           weatherForecast.classList.add("show-forecast");
@@ -176,15 +168,10 @@ function fiveDayWeatherforecast(cityID) {
 
           forecastDate.classList.add("each-day-date");
           forecastDate.innerHTML = `${getEachDayDate}`;
-
           forecastTemp.innerHTML = `Temp : ${eachDayTemp} F`;
-          console.log(" forecastTemp text content ", forecastTemp.innerHTML);
-
           forecastWind.innerHTML = `Wind : ${eachDayWind} MPH`;
-
           forecastHumidity.innerHTML = `Humidity : ${eachDayHumidity} %`;
         }
-
         dailyforecast.append(forecastDate);
         forecastDate.appendChild(forecastWeatherIcon);
         dailyforecast.appendChild(forecastTemp);
@@ -194,9 +181,13 @@ function fiveDayWeatherforecast(cityID) {
     });
 }
 
+/* Function to display Recent Search History */
 function displayRecentSearch() {
+  /* Retreive most recently searched city from local storage and save it in a array */
   var storedNames = localStorage.getItem("names");
   saveCity.push(storedNames);
+
+  /* Create button dynamically for displaying recently searched cities list */
   var displayCity = document.createElement("button");
   displayCity.classList.add("city-name");
 
@@ -211,16 +202,17 @@ function displayRecentSearch() {
   });
 }
 
+/* Function for Capitalizing first letter of each word in the City entered by the user */
 function capitalizeFirstLetter(cName) {
   cName = cName.split(" ");
   for (var i = 0; i < cName.length; i++) {
     cName[i] = cName[i].charAt(0).toUpperCase() + cName[i].slice(1);
   }
   cName = cName.join(" ");
-  console.log("capitalizedCity ", cName);
   return cName;
 }
 
+/* Format Date to mm/dd/yyyy format */
 function formattedDate(formatDate) {
   var day;
   var month;
@@ -231,14 +223,22 @@ function formattedDate(formatDate) {
   year = formatDate[0];
   month = formatDate[1];
   day = formatDate[2];
-  console.log("day ", day, "month", month, "year", year);
   if (year.length < 4) {
     year = "2" + year;
   }
-  console.log("yr", year);
   var myDate = month + "/" + day + "/" + year;
-  console.log("myDate ", myDate);
   return myDate;
 }
-var searchButton = document.querySelector("#search-btn");
+
+/* Search Button Event Listener */
+var searchButton = document.getElementById("search-btn");
 searchButton.addEventListener("click", searchCity);
+
+/* Capture key board event for ENTER and call Search City function */
+document.getElementById("city").onkeypress = function (e) {
+  if (!e) e = window.event;
+  if (e.key === "Enter") {
+    searchCity();
+    return false;
+  }
+};

@@ -15,11 +15,14 @@ var temperature = document.getElementById("temperature");
 var wind = document.getElementById("wind");
 var humidity = document.getElementById("humidity");
 var uvIndex = document.getElementById("UV-index");
+var horizontalRule = document.getElementById("horizontal-rule");
 
 function searchCity() {
   /* Remove hide class show Recent Search div after search is clicked */
   recentCitySearch.classList.remove("hide");
   recentCitySearch.classList.add("show");
+  horizontalRule.classList.remove("hide");
+  horizontalRule.classList.add("show");
 
   /* Get City and capitalize first letter of each word */
   var getCity = document.querySelector("#city").value;
@@ -28,6 +31,11 @@ function searchCity() {
 
   /* Store in local Storage to retreive for recent history */
   localStorage.setItem("names", city);
+ 
+  /* create a horizontal rule and then display recent search */
+  // var horizontalRule = document.createElement("hr");
+  // horizontalRule.classList.add("horizontal-rule");
+  // recentCitySearch.appendChild(horizontalRule);
 
   /* Show Recent search history */
   displayRecentSearch(city);
@@ -126,7 +134,7 @@ function fiveDayWeatherforecast(cityID) {
       var fiveDayList = response.list;
       console.log("fiveDayList", fiveDayList);
 
-      /* For each date, there are 8 objects, iterate over the list of 40 items */
+      /* For each date, there are 8 objects for 5 days, iterate over the list of 40 items */
       for (index = 0; index < 5; index++) {
         /* get Div tag by id and clear content before appending*/
         var dailyforecast = document.querySelector(
@@ -137,6 +145,7 @@ function fiveDayWeatherforecast(cityID) {
 
         // calculate index to retreive 4th occurence object to display NOON values
         calculatedIndex = index * 8 + 4;
+        
         if (calculatedIndex < fiveDayList.length) {
           var forecastDate = document.createElement("p");
           var forecastTemp = document.createElement("p");
@@ -145,9 +154,7 @@ function fiveDayWeatherforecast(cityID) {
 
           var displayIcon = fiveDayList[calculatedIndex].weather[0].icon;
           console.log("display Icon", displayIcon);
-          // displayIcon = displayIcon.slice(1, -1);
-          // displayIcon = displayIcon.split(" ")[0];
-
+    
           var forecastWeatherIcon = document.createElement("img");
           var imageSource = `https://openweathermap.org/img/wn/${displayIcon}@2x.png`;
           console.log("imageSource", imageSource);
@@ -233,5 +240,5 @@ function formattedDate(formatDate) {
   console.log("myDate ", myDate);
   return myDate;
 }
-var searchButton = document.querySelector("#search");
+var searchButton = document.querySelector("#search-btn");
 searchButton.addEventListener("click", searchCity);

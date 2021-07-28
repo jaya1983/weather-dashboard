@@ -12,10 +12,8 @@
   text-align: center;
   color: white;
 }
-.body {
-  background-color: wheat;
-}
-.btn {
+/* Seach Button Styling */
+#search-btn {
   font-size: 18px;
   text-decoration: none;
   padding: 6px 25px 10px 20px;
@@ -27,8 +25,6 @@
   color: black;
   box-shadow: 3px 3px var(--dark);
   transform: translate(-1px, -1px);
-}
-#search {
   font-size: 18px;
   background-color: skyblue;
 }
@@ -47,6 +43,11 @@
   margin: 0;
   border-radius: 5px;
   font-size: 20px;
+}
+.horizontal-rule{
+  width: 85%;
+  margin-left: 50px;
+  border: 0.5px solid black;
 }
 .weather-conditions {
   margin-top: 5px;
@@ -78,25 +79,10 @@
   margin-left: 45px;
   margin-top: 20px;
 }
-.text-color {
-  color: white;
-}
 .each-day-date {
   color: white;
   font-size: 18px;
   font-weight: bold;
-}
-/* footer Styling */
-.footer {
-  padding: 30px;
-  clear: both;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
-  text-align: center;
-}
-
-.footer h2 {
-  font-size: 20px;
 }
 .city-name {
   width: 88%;
@@ -119,3 +105,4 @@
   display: flex;
   flex-direction: row;
 }
+

@@ -1,4 +1,6 @@
 # ** weather-dashboard **
+The URL of the functional, deployed application : https://jaya1983.github.io/weather-dashboard/
+
 A Web page where user can search a particular city's weather by its name.
 The top left corner displays a card layout, where an input text box with a search button is provided.
 Once the user clicks on search OR press ENTER,  a recent search history , a Today's Weather section &  daily forecast for next 5 days will appear below the search button.

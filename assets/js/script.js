@@ -1,4 +1,3 @@
-
 var recentCitySearch = document.querySelector("#recent-search");
 var todaysWeather = document.querySelector("#todays-weather");
 var show5DayHeader = document.querySelector("#show-five-day-header");
@@ -17,10 +16,10 @@ var apiKey = "a65c5c15039d05a0f7175619a4cb05e1";
 var tempUnit = "imperial";
 var cityId;
 var recentHistorySearch;
+var excludeParam = "current";
 
 /* function for On click event on Search Button OR Input ENTER key */
 function searchCity() {
-  
   /* Remove hide class show Recent Search div after search is clicked */
   recentCitySearch.classList.remove("hide");
   recentCitySearch.classList.add("show");
@@ -31,8 +30,8 @@ function searchCity() {
   var city = capitalizeFirstLetter(getCity.value);
 
   /* Store in local Storage to retreive for recent history */
-  localStorage.setItem("names", city);
-
+  store(city);
+  
   /* Show Recent search history */
   displayRecentSearch(city);
 
@@ -87,25 +86,25 @@ function weatherAPIRequest(cityName) {
       var lat = response.city.coord.lat;
       var lon = response.city.coord.lon;
       cityId = response.city.id;
-
+  
       /* call UV Query API to get UV-Index */
-      var UVQueryURL = `https://api.openweathermap.org/data/2.5/uvi/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&cnt=1`;
+      var UVQueryURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
       fetch(UVQueryURL)
         .then(function (response) {
           return response.json();
         })
         .then(function (response) {
-          console.log("resp ", response[0].value);
+
           var responseUVIndex = document.createElement("span");
-          if (response[0].value < 4) {
+          if (response.current.uvi < 4) {
             responseUVIndex.setAttribute("class", "badge badge-success");
-          } else if (response[0].value < 8) {
+          } else if (response.current.uvi < 8) {
             responseUVIndex.setAttribute("class", "badge badge-warning");
           } else {
             responseUVIndex.setAttribute("class", "badge badge-danger");
           }
-          responseUVIndex.innerHTML = response[0].value;
+          responseUVIndex.innerHTML = response.current.uvi;
           uvIndex.textContent = `UV-Index: `;
           uvIndex.appendChild(responseUVIndex);
         });
@@ -190,9 +189,11 @@ function displayRecentSearch() {
   /* Create button dynamically for displaying recently searched cities list */
   var displayCity = document.createElement("button");
   displayCity.classList.add("city-name");
-
+ 
   for (index = 0; index < saveCity.length; index++) {
-    displayCity.textContent = saveCity[index];
+    displayCity.textContent = localStorage.getItem("item");
+    displayCity.textContent = displayCity.textContent.slice(1, -1);
+    displayCity.textContent = displayCity.textContent.split(" ")[0];
     recentCitySearch.appendChild(displayCity);
   }
   /* If the button in recent search is clicked, today's weather and 5 day forecast will be displayed for that particular city */
@@ -210,6 +211,13 @@ function capitalizeFirstLetter(cName) {
   }
   cName = cName.join(" ");
   return cName;
+}
+
+/* function for local Storage */
+
+function store(item) {
+  saveCity.push(item);
+  localStorage.setItem("item", JSON.stringify(item));
 }
 
 /* Format Date to mm/dd/yyyy format */

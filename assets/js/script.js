@@ -31,7 +31,7 @@ function searchCity() {
 
   /* Store in local Storage to retreive for recent history */
   store(city);
-  
+
   /* Show Recent search history */
   displayRecentSearch(city);
 
@@ -86,7 +86,7 @@ function weatherAPIRequest(cityName) {
       var lat = response.city.coord.lat;
       var lon = response.city.coord.lon;
       cityId = response.city.id;
-  
+
       /* call UV Query API to get UV-Index */
       var UVQueryURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
@@ -95,7 +95,6 @@ function weatherAPIRequest(cityName) {
           return response.json();
         })
         .then(function (response) {
-
           var responseUVIndex = document.createElement("span");
           if (response.current.uvi < 4) {
             responseUVIndex.setAttribute("class", "badge badge-success");
@@ -189,11 +188,11 @@ function displayRecentSearch() {
   /* Create button dynamically for displaying recently searched cities list */
   var displayCity = document.createElement("button");
   displayCity.classList.add("city-name");
- 
+
   for (index = 0; index < saveCity.length; index++) {
     displayCity.textContent = localStorage.getItem("item");
+    console.log("item", localStorage.getItem("item"));
     displayCity.textContent = displayCity.textContent.slice(1, -1);
-    displayCity.textContent = displayCity.textContent.split(" ")[0];
     recentCitySearch.appendChild(displayCity);
   }
   /* If the button in recent search is clicked, today's weather and 5 day forecast will be displayed for that particular city */
